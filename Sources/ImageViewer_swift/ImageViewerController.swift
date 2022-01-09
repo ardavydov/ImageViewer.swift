@@ -170,7 +170,7 @@ UIGestureRecognizerDelegate {
             let translation: CGPoint = gestureRecognizer
                 .translation(in: view)
             container.center = CGPoint(
-                x: isAllowHorizontalDismiss ? lastLocation.x + translation.x : lastLocation.x,
+                x: !isAllowHorizontalDismiss ? lastLocation.x + translation.x : lastLocation.x,
                 y: lastLocation.y + translation.y)
         }
         
