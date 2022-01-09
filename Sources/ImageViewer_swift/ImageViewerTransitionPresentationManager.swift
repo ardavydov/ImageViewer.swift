@@ -126,6 +126,7 @@ extension ImageViewerTransitionPresentationAnimator: UIViewControllerAnimatedTra
         UIView.animate(withDuration: duration, animations: {
             if let sourceView = sourceView {
                 // return to original position
+                dummyImageView.layer.cornerRadius = sourceView.layer.cornerRadius
                 dummyImageView.frame = sourceView.frameRelativeToWindow()
             } else {
                 // just disappear

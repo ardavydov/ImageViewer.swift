@@ -32,15 +32,18 @@ UIGestureRecognizerDelegate {
     private var lastLocation:CGPoint = .zero
     private var isAnimating:Bool = false
     private var maxZoomScale:CGFloat = 1.0
+    private var isAllowHorizontalDismiss: Bool = false
     
     init(
         index: Int,
         imageItem:ImageItem,
-        imageLoader: ImageLoader) {
+        imageLoader: ImageLoader,
+        isAllowHorizontalDismiss: Bool = false) {
 
         self.index = index
         self.imageItem = imageItem
         self.imageLoader = imageLoader
+        self.isAllowHorizontalDismiss = isAllowHorizontalDismiss
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -167,7 +170,7 @@ UIGestureRecognizerDelegate {
             let translation: CGPoint = gestureRecognizer
                 .translation(in: view)
             container.center = CGPoint(
-                x: lastLocation.x + translation.x,
+                x: isAllowHorizontalDismiss ? lastLocation.x + translation.x : lastLocation.x,
                 y: lastLocation.y + translation.y)
         }
         
@@ -209,7 +212,7 @@ UIGestureRecognizerDelegate {
         guard scrollView.zoomScale == scrollView.minimumZoomScale,
             let panGesture = gestureRecognizer as? UIPanGestureRecognizer
             else { return false }
-        
+        guard !isAllowHorizontalDismiss else { return true }
         let velocity = panGesture.velocity(in: scrollView)
         return abs(velocity.y) > abs(velocity.x)
     }

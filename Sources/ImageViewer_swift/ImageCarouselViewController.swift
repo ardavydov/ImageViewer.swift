@@ -145,7 +145,8 @@ public class ImageCarouselViewController:UIPageViewController, ImageViewerTransi
             let initialVC:ImageViewerController = .init(
                 index: initialIndex,
                 imageItem: imageDatasource.imageItem(at: initialIndex),
-                imageLoader: imageLoader)
+                imageLoader: imageLoader, 
+                isAllowHorizontalDismiss: imageDatasource.numberOfImages() == 1)
             setViewControllers([initialVC], direction: .forward, animated: true)
         }
     }
